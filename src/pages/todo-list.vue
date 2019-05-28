@@ -1,7 +1,21 @@
 <template>
   <div class="todo-content">
-    <div class="func-ment">
-      <div class="li" @click="$refs.createGroupDialog.show()">新建分组</div>
+    <div class="func-menu" :class="{mode:!showFunc}">
+      <div class="li" @click="showFunc=true" v-click-out="test">
+        <i class="iconfont">&#xe699;</i>
+      </div>
+      <div class="li" @click="$refs.createGroupDialog.show()">
+        <i class="iconfont">&#xe6b9;</i>
+        <span v-if="showFunc==true">新建分组</span>
+      </div>
+      <div class="li">
+        <i class="iconfont">&#xe749;</i>
+        <span v-if="showFunc==true">系统消息</span>
+      </div>
+      <div class="li">
+        <i class="iconfont">&#xe6ae;</i>
+        <span v-if="showFunc==true">用户设置</span>
+      </div>
     </div>
     <list :listData="todoData"></list>
     <c-dialog
@@ -36,7 +50,8 @@ import cDialog from '../components/dialog'
 export default {
   data () {
     return {
-      groupName: ''
+      groupName: '',
+      showFunc: true
     }
   },
   computed: mapState({
@@ -45,6 +60,9 @@ export default {
     }
   }),
   methods: {
+    test () {
+      this.showFunc = false
+    },
     confirmCreateGroup () {
       this.$store.commit(types.M_CREATE_TODO_LIST_GROUP, {
         title: this.groupName,

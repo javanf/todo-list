@@ -17,6 +17,23 @@ select
   height 29px
 input
   line-height 30px
+@font-face
+  font-family: 'iconfont';  /* project id 1215617 */
+  src: url('//at.alicdn.com/t/font_1215617_ntfqu5gi0pc.eot');
+  src: url('//at.alicdn.com/t/font_1215617_ntfqu5gi0pc.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1215617_ntfqu5gi0pc.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1215617_ntfqu5gi0pc.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1215617_ntfqu5gi0pc.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1215617_ntfqu5gi0pc.svg#iconfont') format('svg');
+
+
+.iconfont
+  font-family "iconfont" !important
+  font-size 16px;font-style normal
+  -webkit-font-smoothing  antialiased
+  -webkit-text-stroke-width  0.2px
+  -moz-osx-font-smoothing  grayscale
+
 .clearfix
   &:after
     content ''
@@ -36,15 +53,22 @@ li
 .todo-content
   height 100%
   background-color: #f5f5f5;
-.func-ment
-  position fixed
+  display flex
+.func-menu
   top 0
   left 0
   background #fff
-  box-shadow 1px 1px 1px #ccc
+  box-shadow 0px 1px 1px #ccc
   height 100%
-  width 90px
+  width 120px
+  transition width 0.2s
   .li
     padding 0 10px
-    line-height 25px
+    line-height 50px
     cursor pointer
+    border-bottom 1px solid #dfdfdf
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+  &.mode
+    width 40px

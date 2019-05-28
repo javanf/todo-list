@@ -1,23 +1,26 @@
 .section
   height 100%
-  margin-left 100px
+  margin-left 10px
+  flex 1
   .item-detail
     li
       margin-bottom 10px
 #list
   height 100%
-  padding 20px
   .list-group
     float left
     width 240px
     height 100%
     margin-right 20px
+    display flex
+    flex-direction column
     .list-title
+      line-height 30px
       font-size 14px
       font-weight 700
-      overflow hidden
-      text-overflow ellipsis
-      white-space nowrap
+      // overflow hidden
+      // text-overflow ellipsis
+      // white-space nowrap
       margin-bottom 10px
       padding-left 4px
       .add-item
@@ -29,7 +32,7 @@
           display block
           width 80px
     .draggable
-      height 100%
+      flex 1
       &>span
         display block
         height 100%

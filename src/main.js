@@ -4,8 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import commons from './directives/commons'
 
 Vue.config.productionTip = false
+
+Vue.directive('clickOut', commons.clickOut)
 
 /* eslint-disable no-new */
 new Vue({
