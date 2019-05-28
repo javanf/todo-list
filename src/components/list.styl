@@ -1,0 +1,46 @@
+.section
+  height 100%
+  margin-left 100px
+  .item-detail
+    li
+      margin-bottom 10px
+#list
+  height 100%
+  padding 20px
+  .list-group
+    float left
+    width 240px
+    height 100%
+    margin-right 20px
+    .list-title
+      font-size 14px
+      font-weight 700
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+      margin-bottom 10px
+      padding-left 4px
+      .add-item
+        float right
+        cursor pointer
+        text-align right
+        &:after
+          content ''
+          display block
+          width 80px
+    .draggable
+      height 100%
+      &>span
+        display block
+        height 100%
+      &.active
+        box-shadow 0px 0px 2px #10af7e
+      .draggable-item
+        margin-bottom 8px
+  .flip-list-move
+    transition transform 0.5s
+  .no-move
+    transition transform 0s
+  .ghost
+    opacity 0.5
+    background #c8ebfb

@@ -1,0 +1,33 @@
+.item
+  white-space normal
+  background-color #fff
+  border-radius 4px
+  box-shadow 0 1px 2px 0 rgba(0,0,0,.1)
+  padding 20px
+  font-size 14px
+  position relative
+  overflow hidden
+  &.level
+    &:before
+      position absolute
+      content ''
+      display inline-block
+      width 5px
+      height 100%
+      left 0
+      top 0
+      transition width 0.3s
+  &.level1
+    &:before
+      background #ffad32
+  &.level2
+    &:before
+      background #ff4422
+  &:hover
+    &.level0
+      &:before
+        background #ccc
+  &:hover
+    &.level
+      &:before
+        width 10px
