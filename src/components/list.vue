@@ -46,6 +46,13 @@
             </div>
           </li>
           <li class="dis-flex">
+            <div class="w-80">附件</div>
+            <div class="flex1">
+              <img class="img-pre" :src="img" @click="preview(img)" v-for="(img, index) in listItem.imgs" :key="index">
+              <input type="file" @change="fileChange" />
+            </div>
+          </li>
+          <li class="dis-flex">
             <div class="w-80">优先级</div>
             <div class="flex1">
               <select  v-model="listItem.level" id="">
@@ -56,6 +63,16 @@
             </div>
           </li>
         </ul>
+      </div>
+    </c-dialog>
+    <c-dialog
+      ref="previewImg"
+      title=""
+      cancelBtn=""
+      confirmBtn=""
+    >
+      <div class="preview-img">
+        <img class="img-pre" :src="previewImg">
       </div>
     </c-dialog>
   </div>
@@ -84,10 +101,12 @@ export default {
       current: '',
       drag: false,
       groupIndex: '',
+      previewImg: '',
       listItem: {
         name: '',
         description: '',
-        level: 0
+        level: 0,
+        imgs: []
       }
     }
   },
@@ -102,6 +121,23 @@ export default {
     }
   },
   methods: {
+    preview (img) {
+      this.previewImg = img
+      this.$refs.previewImg.show()
+    },
+    fileChange (e) {
+      let vm = this
+      // input 改变事件
+      let file = e.target.files[0]
+      console.log(file)
+      // 文件转base64
+      var reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = function (e) {
+        console.log(reader.result)
+        vm.listItem.imgs.push(reader.result)
+      }
+    },
     endDrag () {
       this.current = ''
       this.drag = false
@@ -122,7 +158,8 @@ export default {
       this.listItem = {
         name: '',
         description: '',
-        level: 0
+        level: 0,
+        imgs: []
       }
       this.$refs.itemDetail.show()
     },
