@@ -49,7 +49,10 @@
             <div class="w-80">附件</div>
             <div class="flex1">
               <img class="img-pre" :src="img" @click="preview(img)" v-for="(img, index) in listItem.imgs" :key="index">
-              <input type="file" @change="fileChange" />
+              <div class="add-img-btn" @click="clickFileInput">
+                <i class="iconfont">&#xe6b9;</i>
+              </div>
+              <input class="file-input" ref="fileInput" type="file" @change="fileChange" />
             </div>
           </li>
           <li class="dis-flex">
@@ -121,6 +124,9 @@ export default {
     }
   },
   methods: {
+    clickFileInput () {
+      this.$refs.fileInput.dispatchEvent(new MouseEvent('click'))
+    },
     preview (img) {
       this.previewImg = img
       this.$refs.previewImg.show()
@@ -150,7 +156,9 @@ export default {
       })
     },
     editListItem (item) {
-      this.listItem = Object.assign({}, item)
+      this.listItem = Object.assign({
+        imgs: []
+      }, item)
       this.$refs.itemDetail.show()
     },
     addItem (index) {
