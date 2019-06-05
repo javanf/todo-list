@@ -1,5 +1,5 @@
 <template>
-  <div class="popup" v-if="visable" @click="visable=false">
+  <div class="popup" v-if="visable">
     <div class="dialog">
       <div class="title" v-if="title">{{title}}</div>
       <div class="content">
