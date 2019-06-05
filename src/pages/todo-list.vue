@@ -24,8 +24,9 @@
       cancelBtn="取消"
       confirmBtn="确认"
       @confirm="confirmCreateGroup"
+      class="new-group"
     >
-      <div class="item-detail">
+      <div>
         <ul>
           <li class="dis-flex">
             <div class="w-80">分组名称</div>

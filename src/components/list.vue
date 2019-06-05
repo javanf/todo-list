@@ -30,8 +30,9 @@
       cancelBtn="取消"
       confirmBtn="确认"
       @confirm="itemDetailConfirm"
+      class="item-detail"
     >
-      <div class="item-detail">
+      <div>
         <ul>
           <li class="dis-flex">
             <div class="w-80">概要</div>
@@ -57,12 +58,9 @@
           </li>
           <li class="dis-flex">
             <div class="w-80">优先级</div>
-            <div class="flex1">
-              <select  v-model="listItem.level" id="">
-                <option value="0">普通</option>
-                <option value="1">紧急</option>
-                <option value="2">非常紧急</option>
-              </select>
+            <div class="flex1 relative">
+              <input type="text" @click="showLevelSelect=true" v-click-out="hideSelect" :value="listItem.level|filterLevel(LEVEL_LIST)" readonly>
+              <c-select v-if="showLevelSelect" :list="LEVEL_LIST" @select="levelSelect"></c-select>
             </div>
           </li>
         </ul>
@@ -73,10 +71,12 @@
       title=""
       cancelBtn=""
       confirmBtn=""
+      class="preview-img"
     >
-      <div class="preview-img">
+      <div>
         <img class="img-pre" :src="previewImg">
       </div>
+      <i class="close iconfont"  @click="$refs.previewImg.hide()">&#xe69a;</i>
     </c-dialog>
   </div>
 </template>
@@ -85,6 +85,7 @@
 import ListItem from './list-item'
 import Draggable from 'vuedraggable'
 import cDialog from './dialog'
+import cSelect from './select'
 import * as types from '../store/types.js'
 
 export default {
@@ -97,7 +98,8 @@ export default {
   components: {
     ListItem,
     Draggable,
-    cDialog
+    cDialog,
+    cSelect
   },
   data () {
     return {
@@ -110,7 +112,18 @@ export default {
         description: '',
         level: 0,
         imgs: []
-      }
+      },
+      showLevelSelect: false,
+      LEVEL_LIST: [{
+        value: 0,
+        label: '普通'
+      }, {
+        value: 1,
+        label: '紧急'
+      }, {
+        value: 2,
+        label: '非常紧急'
+      }]
     }
   },
   computed: {
@@ -123,7 +136,25 @@ export default {
       }
     }
   },
+  filters: {
+    filterLevel (value, list) {
+      let label = ''
+      list.map(item => {
+        if (item.value === +value) {
+          label = item.label
+        }
+      })
+      return label
+    }
+  },
   methods: {
+    hideSelect () {
+      this.showLevelSelect = false
+    },
+    levelSelect (item) {
+      console.log(item)
+      this.listItem.level = item.value
+    },
     clickFileInput () {
       this.$refs.fileInput.dispatchEvent(new MouseEvent('click'))
     },
