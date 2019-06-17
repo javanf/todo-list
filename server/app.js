@@ -29,6 +29,7 @@ app.all('*', function (req, res, next) {
   next();
 });
 
+// 获取所有任务
 app.get('/task/get-task-list', (req, res) => {
   query(sql.SELECT_TASK_GROUP, (err, result, fields) => {
     if (err) {
@@ -60,7 +61,9 @@ app.post('/task/create-task-group', (req, res) => {
   })
 })
 
-
+/**
+ * 新增/更新任务
+ */
 app.post('/task/update-task', (req, res) => {
   const params = req.body;
   if(!params.group_id){
