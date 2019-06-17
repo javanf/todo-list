@@ -1,26 +1,25 @@
 <template>
   <div class="section">
     <div id="list" class="clearfix">
-      <div class="list-group" v-for="(item, index) in listData" :key="index">
-        <div class="list-title">{{item.title}}
-          <span class="add-item" @click="addItem(index)">+</span>
+      <div class="list-group" v-for="(item, index) in listData" v-bind:key="index">
+        <div class="list-title">{{item.group_title}}
+          <span class="add-item" @click="addItem(item.group_id)">+</span>
         </div>
         <draggable
           class="draggable"
-          :class="{active:current===index}"
-          :data-index="index"
+          :class="{active:current===item.group_id}"
+          :data-index="item.group_id"
           :move="onMoveCallback"
           :list="item.list"
           v-bind="dragOptions"
           @end="endDrag"
           @start="drag = true"
           group="people"
+          :name="!drag ? 'flip-list' : null"
         >
-          <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-            <div class="draggable-item" v-for="element in item.list" :key="element.id" @click="editListItem(element)">
-              <list-item :objData="element"></list-item>
-            </div>
-          </transition-group>
+          <div class="draggable-item" v-for="element in item.list" :data-item="element" v-bind:key="element.id" @click="editListItem(element)">
+            <list-item :objData="element"></list-item>
+          </div>
         </draggable>
       </div>
     </div>
@@ -37,7 +36,7 @@
           <li class="dis-flex">
             <div class="w-80">概要</div>
             <div class="flex1">
-              <input type="text" v-model="listItem.name">
+              <input type="text" v-model="listItem.title">
             </div>
           </li>
           <li class="dis-flex">
@@ -105,10 +104,11 @@ export default {
     return {
       current: '',
       drag: false,
+      currentTask: '',
       groupIndex: '',
       previewImg: '',
       listItem: {
-        name: '',
+        title: '',
         description: '',
         level: 0,
         imgs: []
@@ -152,7 +152,6 @@ export default {
       this.showLevelSelect = false
     },
     levelSelect (item) {
-      console.log(item)
       this.listItem.level = item.value
     },
     clickFileInput () {
@@ -175,14 +174,21 @@ export default {
         vm.listItem.imgs.push(reader.result)
       }
     },
+    touchStart (item) {
+      console.log(item)
+    },
     endDrag () {
-      this.current = ''
       this.drag = false
-      this.$store.commit(types.M_ADD_TODO_LIST_ITEM)
+      // this.$store.commit(types.M_ADD_TODO_LIST_ITEM)
+      this.$store.dispatch(types.A_CREATED_TASK, {
+        group_id: this.current,
+        item: this.currentTask
+      })
+      this.current = ''
     },
     itemDetailConfirm () {
-      this.$store.commit(types.M_ADD_TODO_LIST_ITEM, {
-        index: this.groupIndex,
+      this.$store.dispatch(types.A_CREATED_TASK, {
+        group_id: this.groupIndex,
         item: this.listItem
       })
     },
@@ -190,12 +196,13 @@ export default {
       this.listItem = Object.assign({
         imgs: []
       }, item)
+      this.groupIndex = item.group_id
       this.$refs.itemDetail.show()
     },
     addItem (index) {
       this.groupIndex = index
       this.listItem = {
-        name: '',
+        title: '',
         description: '',
         level: 0,
         imgs: []
@@ -203,7 +210,8 @@ export default {
       this.$refs.itemDetail.show()
     },
     onMoveCallback (evt, originalEvent) {
-      this.current = +evt.to.parentElement.dataset.index
+      this.currentTask = evt.draggedContext.element
+      this.current = +evt.to.dataset.index
     }
   }
 }

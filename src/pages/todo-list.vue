@@ -60,13 +60,16 @@ export default {
       return state.todoData
     }
   }),
+  created () {
+    this.$store.dispatch(types.A_GET_TASK_GROUP)
+  },
   methods: {
     test () {
       this.showFunc = false
     },
     confirmCreateGroup () {
-      this.$store.commit(types.M_CREATE_TODO_LIST_GROUP, {
-        title: this.groupName,
+      this.$store.dispatch(types.A_CREATE_TASK_GROUP, {
+        group_title: this.groupName,
         list: []
       })
     }

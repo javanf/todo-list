@@ -1,6 +1,6 @@
 <template>
   <div class="item" :class="'level level' + objData.level">
-    <span>{{objData.name}}</span>
+    <span>{{objData.title}}</span>
   </div>
 </template>
 
