@@ -4,15 +4,36 @@ import * as types from './types'
 import http from '../commons/http'
 
 const actions = {
+  [types.A_REGISTER] ({ commit, dispatch }, params) {
+    http({
+      method: 'POST',
+      url: '/user/register',
+      json: true,
+      data: params
+    }).then(() => {
+    })
+  },
+  [types.A_LOGIN] ({ commit, dispatch }, params) {
+    return http({
+      method: 'POST',
+      url: '/user/login',
+      json: true,
+      data: params
+    }).then((resp) => {
+      return Promise.resolve(resp)
+    }, (err) => {
+      return Promise.reject(err)
+    })
+  },
   // 更新任务（如拖动，修改任务）
-  [types.A_CREATED_TASK] ({ commit }, params) {
+  [types.A_CREATED_TASK] ({ commit, dispatch }, params) {
     http({
       method: 'POST',
       url: '/task/update-task',
       json: true,
       data: params
     }).then(() => {
-      commit(types.M_ADD_TODO_LIST_ITEM, params)
+      dispatch(types.A_GET_TASK_GROUP)
     })
   },
   // 创建任务分组

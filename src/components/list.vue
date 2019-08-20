@@ -147,6 +147,13 @@ export default {
       return label
     }
   },
+  created() {
+    // 接收服务端的信息
+    this.sockets.subscribe('update-task-callback', (data) => {
+      console.log('update-task-callback', data)
+      this.$store.commit(types.M_GET_TASK_GROUP, data)
+    })
+  },
   methods: {
     hideSelect () {
       this.showLevelSelect = false
@@ -179,8 +186,11 @@ export default {
     },
     endDrag () {
       this.drag = false
-      // this.$store.commit(types.M_ADD_TODO_LIST_ITEM)
-      this.$store.dispatch(types.A_CREATED_TASK, {
+      // this.$store.dispatch(types.A_CREATED_TASK, {
+      //   group_id: this.current,
+      //   item: this.currentTask
+      // })
+      this.$socket.emit('update-task', {
         group_id: this.current,
         item: this.currentTask
       })

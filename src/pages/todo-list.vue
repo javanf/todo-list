@@ -71,6 +71,8 @@ export default {
       this.$store.dispatch(types.A_CREATE_TASK_GROUP, {
         group_title: this.groupName,
         list: []
+      }).then(() => {
+        this.$store.dispatch(types.A_GET_TASK_GROUP)
       })
     }
   },
