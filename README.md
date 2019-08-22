@@ -1,11 +1,13 @@
-# todo-list
+# Todo-List待办事项任务管理
 
-> todo-list 待办事项任务管理，分解项目，逐步完成。
-
-todo-list拥有2个版本：master是需要连接mysql的，local是不需要数据库的（不过功能很少），拉取分支看自身情况。
+## 技术栈
+1、Vue + Vuex + localStorage 状态持久化管理
+2、Node + Express 搭建服务端连接Mysql
+3、Socket.io 协同任务管理
 
 
 ## 快速开始
+> todo-list拥有2个版本：master是需要连接mysql的，local是不需要数据库的（不过功能很少），拉取分支看自身情况。
 
 根目录
 ``` bash
