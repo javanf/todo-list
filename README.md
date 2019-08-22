@@ -48,4 +48,4 @@ mysql数据库：
 [第七章：Socket.io多人协同处理待办事项](https://www.toutiao.com/i6704451792714859020/)
 
 ## 预览
-![待办事项任务管理](http://cdn.javanx.cn/wp-content/themes/lensnews2.2/images/post/20190529151656.jpg)
+![Socket.io多人协同处理待办事项](http://cdn.javanx.cn/wp-content/themes/lensnews2.2/images/201909/20190820145303.gif)
