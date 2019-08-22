@@ -2,7 +2,9 @@
 
 ## 技术栈
 1、Vue + Vuex + localStorage 状态持久化管理
+
 2、Node + Express 搭建服务端连接Mysql
+
 3、Socket.io 协同任务管理
 
 
