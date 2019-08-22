@@ -2,22 +2,31 @@
 
 > todo-list 待办事项任务管理，分解项目，逐步完成。
 
+todo-list拥有2个版本：master是需要连接mysql的，local是不需要数据库的（不过功能很少），拉取分支看自身情况。
+
 
 ## 快速开始
 
+根目录
 ``` bash
 # install dependencies
 npm install
 
 # serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
+
+然后切到server目录
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+node app.js
+```
+
+mysql数据库：
+> 导入根目录下的todo-list.sql
 
 ## 介绍
 本次《todo list: Vue待办事项任务管理》，分为一下章节：
